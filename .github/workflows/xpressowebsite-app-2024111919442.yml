@@ -28,12 +28,11 @@ jobs:
         username: ${{ secrets.AZURE_CLIENT_ID }}
         password: ${{ secrets.AZURE_CLIENT_SECRET }}
     - name: Build and push container image to registry
+      if: success()
       run: |
         dotnet publish -c Release -r linux-x64 -p:PublishProfile=DefaultContainer \
         -p:ContainerImageTag=${{ github.sha }} --no-self-contained \
-        -p:ContainerRegistry=${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }} \
-        -p:ContainerRegistryUsername=${{ secrets.AZURE_CLIENT_ID }} \
-        -p:ContainerRegistryPassword=${{ secrets.AZURE_CLIENT_SECRET }} -bl
+        -p:ContainerRegistry=${{ env.CONTAINER_REGISTRY_LOGIN_SERVER }}
     - name: Upload binlog for investigation
       uses: actions/upload-artifact@v4
       with:
