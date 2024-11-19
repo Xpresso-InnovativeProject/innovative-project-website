@@ -1,0 +1,48 @@
+name: Trigger auto deployment for xpressowebsite-app-2024111919442
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ main ]
+    paths:
+    - '**'
+    - '.github/workflows/xpressowebsite-app-2024111919442-AutoDeployTrigger-fb29cc65-a403-4bfe-b035-b32f296a3f0d.yml'
+
+  # Allow manual trigger 
+  workflow_dispatch:      
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions: 
+      id-token: write #This is required for requesting the OIDC JWT Token
+      contents: read #Required when GH token is used to authenticate with private repo
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.XPRESSOWEBSITEAPP2024111919442_AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.XPRESSOWEBSITEAPP2024111919442_AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.XPRESSOWEBSITEAPP2024111919442_AZURE_SUBSCRIPTION_ID }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          appSourcePath: ${{ github.workspace }}
+          _dockerfilePathKey_: _dockerfilePath_
+          registryUrl: xpressowebsite20241119194745.azurecr.io
+          registryUsername: ${{ secrets.XPRESSOWEBSITEAPP2024111919442_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.XPRESSOWEBSITEAPP2024111919442_REGISTRY_PASSWORD }}
+          containerAppName: xpressowebsite-app-2024111919442
+          resourceGroup: xpresso-rg
+          imageToBuild: xpressowebsite20241119194745.azurecr.io/xpressowebsite-app-2024111919442:${{ github.sha }}
+          _buildArgumentsKey_: |
+            _buildArgumentsValues_
+
+
