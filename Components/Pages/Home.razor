@@ -1,0 +1,118 @@
+﻿@page "/"
+@inject IJSRuntime JSRuntime
+
+<div id="home" class="hero">
+    <img src="images/xpresso-logo-white-light.svg" alt="Product Logo" class="logo" />
+    <h1>Revolutionize Your Workflow with Xpresso</h1>
+    <p>The ultimate solution for seamless public transport ticketing and scheduling.</p>
+    <div class="store-buttons">
+        <a href="https://play.google.com/store" target="_blank" class="store-button google-play">
+            <img src="images/vecteezy_badge-google-play-and-app-store-button-download_24170871.png" alt="Apple App Store" />
+        </a>
+        <a href="https://apps.apple.com" target="_blank" class="store-button app-store">
+            <img src="images/vecteezy_badge-google-play-and-app-store-button-download_24170865.png" alt="Google Play Store" />
+        </a>
+    </div>
+</div>
+
+<nav id="main-nav" class="nav">
+    <a href="#home" class="nav-link" data-section="home">Home</a>
+    <a href="#features" class="nav-link" data-section="features">Features</a>
+    <a href="#testimonials" class="nav-link" data-section="testimonials">Testimonials</a>
+    <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+</nav>
+
+<main>
+    <!-- Product Description -->
+    <section style="padding-top:5rem">
+        <h2>Why Choose Xpresso?</h2>
+        <p style="text-align:center">Xpresso offers a cutting-edge solution designed to make public transportation hassle-free.</p>
+    </section>
+
+    <!-- Key Features -->
+    <section id="features" class="container py-5">
+        <h2 class="text-center mb-4">Key Features</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-4 mb-4">
+                <div class="feature-card text-center p-3 border rounded shadow-sm">
+                    <h3>Effortless Ticketing</h3>
+                    <p>Purchase tickets instantly and avoid long queues.</p>
+                    <img src="images/xpresso-tickets.png" class="img-fluid" alt="Effortless Ticketing" />
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-card text-center p-3 border rounded shadow-sm">
+                    <h3>Real-Time Scheduling</h3>
+                    <p>Access live schedules and plan your trips efficiently.</p>
+                    <img src="images/xpresso-options.png" class="img-fluid" alt="Real-Time Scheduling" />
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-card text-center p-3 border rounded shadow-sm">
+                    <h3>Interactive Route Maps</h3>
+                    <p>Visualize your journey with detailed route maps.</p>
+                    <img src="images/xpresso-trip.png" class="img-fluid" alt="Interactive Route Maps" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Testimonials -->
+    <section id="testimonials">
+        <h2>What Our Customers Say</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <p>"Xpresso has completely changed how I commute every day. Highly recommend!"</p>
+                <p>- John Doe</p>
+            </div>
+            <div class="testimonial-card">
+                <p>"Amazing features and super easy to use. A game-changer for public transport users!"</p>
+                <p>- Jane Smith</p>
+            </div>
+            <div class="testimonial-card">
+                <p>"Amazing features and super easy to use. A game-changer for public transport users!"</p>
+                <p>- Jane Smith</p>
+            </div>
+            <div class="testimonial-card">
+                <p>"Amazing features and super easy to use. A game-changer for public transport users!"</p>
+                <p>- Jane Smith</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact" class="container py-5">
+        <h2 class="text-center mb-4">Contact Us</h2>
+        <form class="contact-form">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" class="form-control" required></textarea>
+            </div>
+
+            <button type="submit" class="cta-button btn btn-primary">Send</button>
+        </form>
+    </section>
+</main>
+
+
+@code {
+    // JavaScript to toggle sticky navigation
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("setupStickyNavigation");
+            await JSRuntime.InvokeVoidAsync("highlightActiveNav");
+        }
+    }
+}
