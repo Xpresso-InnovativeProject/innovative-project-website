@@ -1,0 +1,21 @@
+# Ignore build output directories
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio/IDE-specific files
+.vs/
+*.csproj.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+
+# Configuration files with sensitive data
+appsettings.Development.json
+secrets.json
+
+# System files
+.DS_Store
+Thumbs.db
